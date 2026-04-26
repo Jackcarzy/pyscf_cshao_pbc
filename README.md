@@ -14,6 +14,7 @@ Python-based Simulations of Chemistry Framework
 * [Documentation](http://www.pyscf.org)
 * [Installation](#installation)
 * [Features](../master/FEATURES)
+
 (modified by Chengyuan for KSCED-pbc calculations)
 
 # Installation
