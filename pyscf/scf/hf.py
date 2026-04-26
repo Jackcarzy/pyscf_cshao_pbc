@@ -135,40 +135,13 @@ Keyword argument "init_dm" is replaced by "dm0"''')
     if KSCED is True:
         vne_b = kwargs.get('vne_b')
         vhf = mf.get_veff(mol, dm, KSCED=KSCED)
-        #from pyscf.pbc.df import fft
-        #vne_b = fft.get_nuc(mf.with_df,KSCED=2)
-        #vne_b2 =  fft.get_pp(mf.with_df,KSCED=2)   
         h1e = h1e + vne_b
         
-        #print('e1a:', numpy.einsum('ij,ji->', h1e, dm).real)
-        #print('e1:', numpy.einsum('ij,ji->', h1e, dm).real)
     else:
         vhf = mf.get_veff(mol,dm)
 
     e_tot = mf.energy_tot(dm, h1e, vhf)
     
-    #if KSCED is True:
-        #fft.get_nuc(mf.with_df,KSCED=3)
-        #vneR_a = numpy.load('vneR_a.npy')
-        #if cell.pseudo:
-        #    fft.get_pp(mf.with_df,KSCED=3)
-        #    vneR_a = numpy.load('vpplocR_a.npy')
-        #else:
-        #    fft.get_nuc(mf.with_df,KSCED=3)
-        #    vneR_a = numpy.load('vneR_a.npy')
-
-        #rhoR_b = numpy.load('rhoR_b.npy')
-        #e_nuca_eleb = numpy.einsum('i,i->',vneR_a,rhoR_b[0])
-        #print('Nuca_eleb', e_nuca_eleb)
-        #e_tot += e_nuca_eleb
-        
-        #fft.get_pp(mf.with_df,KSCED=3)
-        #vneR_a2 = numpy.load('vpplocR_a.npy')
-        #e_nuca_eleb2 = numpy.einsum('i,i->',vneR_a2,rhoR_b[0])
-        #print('Nuca_eleb2', e_nuca_eleb2)
-    
-
-
     logger.info(mf, 'init E= %.15g', e_tot)
 
     scf_conv = False
@@ -228,23 +201,6 @@ Keyword argument "init_dm" is replaced by "dm0"''')
             vhf = mf.get_veff(mol, dm, dm_last, vhf, KSCED=KSCED)
             e_tot = mf.energy_tot(dm, h1e, vhf)
 
-            #fft.get_nuc(mf.with_df,KSCED=3)
-            #vneR_a = numpy.load('vneR_a.npy')
-            #if cell.pseudo:
-            #    fft.get_pp(mf.with_df,KSCED=3)
-            #    vneR_a = numpy.load('vpplocR_a.npy')
-            #else:
-            #    fft.get_nuc(mf.with_df,KSCED=3)
-            #    vneR_a = numpy.load('vneR_a.npy')
-            #rhoR_b = numpy.load('rhoR_b.npy')
-            #e_nuca_eleb = numpy.einsum('i,i->',vneR_a,rhoR_b[0])
-            #e_tot += e_nuca_eleb
-            #print('Nuca_eleb:', e_nuca_eleb)
-            #fft.get_pp(mf.with_df,KSCED=3)
-            #vneR_a2 = numpy.load('vpplocR_a.npy')
-            #e_nuca_eleb2 = numpy.einsum('i,i->',vneR_a2,rhoR_b[0])
-            #print('Nuca_eleb2', e_nuca_eleb2)
-            #print('e1:', numpy.einsum('ij,ji->', h1e, dm).real)
         else:
             vhf = mf.get_veff(mol, dm, dm_last, vhf)
             e_tot = mf.energy_tot(dm, h1e, vhf)
@@ -288,24 +244,6 @@ Keyword argument "init_dm" is replaced by "dm0"''')
             vhf = mf.get_veff(mol, dm, dm_last, vhf, KSCED=KSCED)
             e_tot, last_hf_e = mf.energy_tot(dm, h1e, vhf), e_tot
             
-            #fft.get_nuc(mf.with_df,KSCED=3)
-            #vneR_a = numpy.load('vneR_a.npy')
-            #if cell.pseudo:
-            #    fft.get_pp(mf.with_df,KSCED=3)
-            #    vneR_a = numpy.load('vpplocR_a.npy')
-            #else:
-            #    fft.get_nuc(mf.with_df,KSCED=3)
-            #    vneR_a = numpy.load('vneR_a.npy')
-
-            #rhoR_b = numpy.load('rhoR_b.npy')
-            #e_nuca_eleb = numpy.einsum('i,i->',vneR_a,rhoR_b[0])
-            #e_tot += e_nuca_eleb
-            #print('Nuca_eleb:', e_nuca_eleb)
-            #fft.get_pp(mf.with_df,KSCED=3)
-            #vneR_a2 = numpy.load('vpplocR_a.npy')
-            #e_nuca_eleb2 = numpy.einsum('i,i->',vneR_a2,rhoR_b[0])
-            #print('Nuca_eleb2', e_nuca_eleb2)
-            #print('e1:', numpy.einsum('ij,ji->', h1e, dm).real)
         else:
             vhf = mf.get_veff(mol, dm, dm_last, vhf)
             e_tot, last_hf_e = mf.energy_tot(dm, h1e, vhf), e_tot
