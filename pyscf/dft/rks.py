@@ -92,7 +92,7 @@ def get_veff(ks, mol=None, dm=None, dm_last=0, vhf_last=0, hermi=1, KSCED=False,
             exc = exc + excnad_ab - excnad_a - excnad_b - exc_b
             print('Exc_ab:',exc)
             print('Exc_b:',exc_b)
-            print('Tnad:',excnad_ab - excnad_a - excnad_b)  
+            print('Tnad:',excnad_ab - excnad_a - excnad_b)
         else:
             n, exc, vxc = ni.nr_rks(mol, ks.grids, ks.xc, dm, max_memory=max_memory)
         logger.debug(ks, 'nelec by numeric integration = %s', n)

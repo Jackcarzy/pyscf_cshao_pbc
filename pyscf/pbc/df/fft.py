@@ -84,7 +84,7 @@ def get_pp(mydf, kpts=None, KSCED=0):
 
     # vpploc evaluated in real-space
     vpplocR = tools.ifft(vpplocG, mesh).real
-    
+
     if KSCED == 1:
         numpy.save('vpplocR_b', vpplocR)
     elif KSCED == 2:

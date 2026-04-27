@@ -353,7 +353,6 @@ def nr_rks(ni, cell, grids, xc_code, dms, spin=0, relativity=0, hermi=1,
         deriv = 1
         vmat = [0]*nset
         v_hermi = 1  # the output matrix must be hermitian
-        
         p1 = 0
         for ao_k1, ao_k2, mask, weight, coords \
                 in ni.block_loop(cell, grids, nao, ao_deriv, kpts, kpts_band,
@@ -361,7 +360,7 @@ def nr_rks(ni, cell, grids, xc_code, dms, spin=0, relativity=0, hermi=1,
             for i in range(nset):
                 rho = make_rho(i, ao_k2, mask, xctype).real
                 p0, p1 = p1, p1 + coords.shape[0]
-                if KSCED == 1: 
+                if KSCED == 1:
                     rho_b = numpy.load('rhoR_b.npy')
                     rho = rho + rho_b[:,p0:p1]
                     exc, vxc = ni.eval_xc_eff(xc_code, rho, deriv, xctype=xctype)[:2]
@@ -379,7 +378,6 @@ def nr_rks(ni, cell, grids, xc_code, dms, spin=0, relativity=0, hermi=1,
                     exc, vxc = ni.eval_xc_eff(xc_code, rho, deriv, xctype=xctype)[:2]
                 else:
                     exc, vxc = ni.eval_xc_eff(xc_code, rho, deriv, xctype=xctype)[:2]
-                
                 if xctype == 'LDA':
                     den = rho*weight
                 else:
@@ -389,7 +387,6 @@ def nr_rks(ni, cell, grids, xc_code, dms, spin=0, relativity=0, hermi=1,
                 wv = weight * vxc
                 vmat[i] += ni._vxc_mat(cell, ao_k1, wv, mask, xctype,
                                        shls_slice, ao_loc, v_hermi)
-        
         vmat = numpy.stack(vmat)
         vmat = vmat + vmat.conj().swapaxes(-2,-1)
         if nset == 1:

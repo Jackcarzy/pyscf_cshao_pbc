@@ -101,7 +101,6 @@ def get_j_kpts(mydf, dm_kpts, hermi=1, kpts=np.zeros((1,3)), kpts_band=None, KSC
     nband = len(kpts_band)
     weight = cell.vol / ngrids
     vR *= weight
-    
     if KSCED == 1:
         np.save('veR_b', vR)
     elif KSCED == 2:

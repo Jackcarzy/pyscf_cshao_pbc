@@ -105,16 +105,6 @@ def kernel(mf, conv_tol=1e-10, conv_tol_grad=None,
     >>> print('conv = %s, E(HF) = %.12f' % (conv, e))
     conv = True, E(HF) = -1.081170784378
     '''
-    if 'KSCED' in kwargs:
-        KSCED = True
-        try:
-            mf.xc
-        except:
-            raise RuntimeError('''
-Cannot run KSCED without setting mf.xc" ''')
-    else:
-        KSCED = False
-
     if 'init_dm' in kwargs:
         raise RuntimeError('''
 You see this error message because of the API updates in pyscf v0.11.
@@ -136,12 +126,10 @@ Keyword argument "init_dm" is replaced by "dm0"''')
         vne_b = kwargs.get('vne_b')
         vhf = mf.get_veff(mol, dm, KSCED=KSCED)
         h1e = h1e + vne_b
-        
     else:
         vhf = mf.get_veff(mol,dm)
 
     e_tot = mf.energy_tot(dm, h1e, vhf)
-    
     logger.info(mf, 'init E= %.15g', e_tot)
 
     scf_conv = False
@@ -243,7 +231,6 @@ Keyword argument "init_dm" is replaced by "dm0"''')
         if KSCED is True:
             vhf = mf.get_veff(mol, dm, dm_last, vhf, KSCED=KSCED)
             e_tot, last_hf_e = mf.energy_tot(dm, h1e, vhf), e_tot
-            
         else:
             vhf = mf.get_veff(mol, dm, dm_last, vhf)
             e_tot, last_hf_e = mf.energy_tot(dm, h1e, vhf), e_tot
