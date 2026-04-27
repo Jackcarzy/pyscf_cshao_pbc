@@ -105,6 +105,11 @@ def kernel(mf, conv_tol=1e-10, conv_tol_grad=None,
     >>> print('conv = %s, E(HF) = %.12f' % (conv, e))
     conv = True, E(HF) = -1.081170784378
     '''
+    if 'KSCED' in kwargs:
+        KSCED = True
+    else:
+        KSCED = False
+
     if 'init_dm' in kwargs:
         raise RuntimeError('''
 You see this error message because of the API updates in pyscf v0.11.
